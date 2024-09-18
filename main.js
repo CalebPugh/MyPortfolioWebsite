@@ -60,12 +60,12 @@ Array(200).fill().forEach(addStar);
 
 // Background
 
-const spaceTexture = new THREE.TextureLoader().load('space.jpg');
+const spaceTexture = new THREE.TextureLoader().load('publish/space.jpg');
 scene.background = spaceTexture;
 
 // Avatar
 
-const calebTexture = new THREE.TextureLoader().load('Caleb_Headshot.png');
+const calebTexture = new THREE.TextureLoader().load('publish/Caleb_Headshot.png');
 
 const caleb = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ map: calebTexture }));
 
@@ -73,8 +73,8 @@ scene.add(caleb);
 
 // Moon
 
-const moonTexture = new THREE.TextureLoader().load('moon.jpg');
-const normalTexture = new THREE.TextureLoader().load('normal.jpg');
+const moonTexture = new THREE.TextureLoader().load('publish/moon.jpg');
+const normalTexture = new THREE.TextureLoader().load('publish/normal.jpg');
 
 const moon = new THREE.Mesh(
   new THREE.SphereGeometry(3, 32, 32),
