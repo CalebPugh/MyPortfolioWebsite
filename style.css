@@ -4,18 +4,20 @@ canvas {
   position: fixed;
   top: 0;
   left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
 }
-
 
 :root {
   --dark-bg: rgba(15, 15, 15, 0.95);
   --spacing: 350px;
+  --spacing-mobile: 100px;
 
   font-family: brandon-grotesque, sans-serif;
   font-weight: 400;
   font-style: normal;
 }
-
 
 main {
   width: 100vw;
@@ -36,46 +38,102 @@ h1, h2, h3, blockquote {
   font-style: normal;
 }
 
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
+header {
+  background: var(--dark-bg);
+  grid-column: 2 / span 5;
+  font-size: 2.5rem;
+  padding: 2rem;
+  margin-bottom: var(--spacing);
 }
 
+section {
+  grid-column: 2 / 8;
+  padding: 1rem;
+  background: var(--dark-bg);
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin-bottom: var(--spacing);
+}
 
+blockquote {
+  margin: 0;
+  padding: 0;
+  grid-column: 2 / span 9;
+  margin-bottom: var(--spacing);
+}
+
+blockquote p {
+  color: black;
+  background-color: white;
+  font-size: 4rem;
+  display: inline;
+  line-height: 1;
+}
+
+.left {
+  grid-column: 6 / 12;
+}
+
+/* Mobile and Tablet adjustments */
+@media (max-width: 1024px) {
+  :root {
+    --spacing: 200px;
+  }
+
+  main {
+    padding: 60px 0px;
+  }
 
   header {
-    background: var(--dark-bg);
-    grid-column: 2 / span 5;
-    font-size: 2.5rem;
-    padding: 2rem;
-    margin-bottom: var(--spacing);
+    grid-column: 1 / span 12;
+    font-size: 2rem;
+    padding: 1.5rem;
   }
 
   section {
-    grid-column: 2 / 8;
-    padding: 1rem;
-    background: var(--dark-bg);
-    font-size: 1.25rem;
-    line-height: 1.5;
+    grid-column: 1 / span 12;
+    font-size: 1rem;
     margin-bottom: var(--spacing);
+    padding: 1.5rem;
   }
 
   blockquote {
-    margin: 0;
-    padding: 0;
-    grid-column: 2 / span 9;
+    grid-column: 1 / span 12;
     margin-bottom: var(--spacing);
   }
 
   blockquote p {
-    color: black;
-    background-color: white;
-    font-size: 4rem;
-    display: inline;
-    line-height: 1;
+    font-size: 2.5rem;
+    padding: 1rem;
   }
 
   .left {
-    grid-column: 6 / 12;
+    grid-column: 1 / span 12;
   }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --spacing: var(--spacing-mobile);
+  }
+
+  header {
+    font-size: 1.5rem;
+    padding: 1rem;
+    margin-bottom: var(--spacing);
+  }
+
+  section {
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-mobile);
+    padding: 1rem;
+  }
+
+  blockquote p {
+    font-size: 2rem;
+  }
+
+  .left {
+    grid-column: 1 / span 12;
+  }
+}

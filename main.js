@@ -12,8 +12,19 @@ const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('#bg'),
 });
 
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(window.innerWidth, window.innerHeight);
+function handleResize() {
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+}
+
+// Call handleResize once to initialize
+handleResize();
+
+// Listen for window resize events
+window.addEventListener('resize', handleResize);
+
 camera.position.setZ(30);
 camera.position.setX(-3);
 
@@ -34,14 +45,6 @@ pointLight.position.set(5, 5, 5);
 
 const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(pointLight, ambientLight);
-
-// Helpers
-
-// const lightHelper = new THREE.PointLightHelper(pointLight)
-// const gridHelper = new THREE.GridHelper(200, 50);
-// scene.add(lightHelper, gridHelper)
-
-// const controls = new OrbitControls(camera, renderer.domElement);
 
 function addStar() {
   const geometry = new THREE.SphereGeometry(0.25, 24, 24);
@@ -121,8 +124,6 @@ function animate() {
   torus.rotation.z += 0.01;
 
   moon.rotation.x += 0.005;
-
-  // controls.update();
 
   renderer.render(scene, camera);
 }
