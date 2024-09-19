@@ -71,6 +71,55 @@ const caleb = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), new THREE.MeshBasic
 
 scene.add(caleb);
 
+// Satelite
+
+const satelliteTexture = new THREE.TextureLoader().load('/metal.jpg');
+
+// Satellite components
+const satelliteBody = new THREE.Mesh(
+  new THREE.CylinderGeometry(1, 1, 5, 32),
+  new THREE.MeshStandardMaterial({ map: satelliteTexture })
+);
+
+const satellitePanel = new THREE.Mesh(
+  new THREE.BoxGeometry(1, 4, 0.1),
+  new THREE.MeshStandardMaterial({ color: 0x333333 })
+);
+
+// Clone and position the solar panels
+satellitePanel.position.x = 2;
+const satellitePanel2 = satellitePanel.clone();
+satellitePanel2.position.x = -2;
+
+// Group the satellite body and panels together
+const satellite = new THREE.Group();
+satellite.add(satelliteBody, satellitePanel, satellitePanel2);
+scene.add(satellite);
+
+// Position the satellite before the moon
+satellite.position.z = 20;  // Position closer to the camera than the moon
+satellite.position.x = 5;
+
+// Asteroids
+const asteroidTexture = new THREE.TextureLoader().load('/Asteroids.jpg');
+const asteroidGroup = []; // Array to store asteroids
+
+function addAsteroid() {
+  const geometry = new THREE.DodecahedronGeometry(0.5, 0); // Create asteroid shape
+  const material = new THREE.MeshStandardMaterial({ map: asteroidTexture });
+  const asteroid = new THREE.Mesh(geometry, material);
+
+  const [x, y, z] = Array(3)
+    .fill()
+    .map(() => THREE.MathUtils.randFloatSpread(20)); // Random position for each asteroid
+
+  asteroid.position.set(x, y, z + 40); // Position after the moon
+  scene.add(asteroid);
+  asteroidGroup.push(asteroid); // Add asteroid to the array
+}
+
+Array(50).fill().forEach(addAsteroid);
+
 // Moon
 
 const moonTexture = new THREE.TextureLoader().load('/moon.jpg');
@@ -119,6 +168,13 @@ function animate() {
   torus.rotation.x += 0.01;
   torus.rotation.y += 0.005;
   torus.rotation.z += 0.01;
+
+  satellite.rotation.y += 0.01;
+
+  asteroidGroup.forEach((asteroid) => {
+    asteroid.rotation.x += 0.01;
+    asteroid.rotation.y += 0.01;
+  });
 
   moon.rotation.x += 0.005;
 
